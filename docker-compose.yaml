@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    container_name: app
+    volumes:
+      - .:/home/node/app
+    tty: true
+    ports:
+      - '3001:3001'
+    environment:
+      DATABASE_DB: test-agro
+      DATABASE_USER: brgarcias
+      DATABASE_PASSWORD: 12345
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  db:
+    image: postgres:latest
+    container_name: db
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: test-agro
+      POSTGRES_USER: brgarcias
+      POSTGRES_PASSWORD: 12345
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
