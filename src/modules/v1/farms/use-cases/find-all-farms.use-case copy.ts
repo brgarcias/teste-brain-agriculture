@@ -3,17 +3,16 @@ import { IFarmRepository } from '../interfaces/farms.interface';
 import { PaginationParamsInterface } from '@interfaces/pagination-params.interface';
 
 @Injectable()
-export class FindAllInAcreFarmsUseCase {
+export class FindAllFarmsUseCase {
   constructor(
     @Inject('IFarmRepository')
     private repository: IFarmRepository,
   ) {}
 
   async execute(options: PaginationParamsInterface) {
-    const farms = await this.repository.findAll(options);
+    const productions = await this.repository.findAll(options);
+    const totalCount = await this.repository.countAll();
 
-    const acres = farms.reduce((prev, curr) => prev + curr.totalArea, 0);
-
-    return acres;
+    return { paginatedResult: productions, totalCount };
   }
 }
