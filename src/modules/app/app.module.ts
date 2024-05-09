@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import V1Module from '@v1/v1.module';
+import { typeOrmConfigAsync } from 'src/typeorm/provider/typeorm.provider';
 
 @Module({
   imports: [
@@ -24,20 +25,8 @@ import V1Module from '@v1/v1.module';
       }),
     }),
     TypeOrmModule.forRootAsync({
-      useFactory: (cfg: ConfigService) => ({
-        type: 'postgres',
-        host: cfg.get('DATABASE_HOST'),
-        port: cfg.get('DATABASE_PORT'),
-        database: cfg.get('DATABASE_DB'),
-        username: cfg.get('DATABASE_USER'),
-        password: cfg.get('DATABASE_PASSWORD'),
-        entities: ['dist/**/*.entity{.ts,.js}'],
-        migrations: ['dist/migrations/*{.ts,.js}'],
-        migrationsRun: true,
-        ssl: true,
-        synchronize: true,
-      }),
-      inject: [ConfigService],
+      useFactory: typeOrmConfigAsync.useFactory,
+      inject: typeOrmConfigAsync.inject,
     }),
     V1Module,
   ],
