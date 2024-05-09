@@ -1,0 +1,28 @@
+// NESTJS
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+// STATUS FILES
+import FarmsController from './farms.controller';
+import FarmsService from './farms.service';
+import FarmEntity from './schemas/farm.entity';
+import FarmsRepository from './farms.repository';
+import FarmRepository from './farms.repository';
+import { FindAllInAcreFarmsUseCase } from './use-cases/find-all-in-acre-farms.use-case';
+import { FindAllQuantityFarmsUseCase } from './use-cases/find-all-quantity-farms.use-case';
+
+@Module({
+  imports: [TypeOrmModule.forFeature([FarmEntity])],
+  controllers: [FarmsController],
+  providers: [
+    FarmsService,
+    FarmsRepository,
+    FindAllQuantityFarmsUseCase,
+    FindAllInAcreFarmsUseCase,
+    {
+      provide: 'IFarmRepository',
+      useExisting: FarmRepository,
+    },
+  ],
+  exports: [FarmsService, FarmsRepository],
+})
+export default class FarmsModule {}

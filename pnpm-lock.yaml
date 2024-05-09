@@ -23,6 +23,9 @@ dependencies:
   '@nestjs/typeorm':
     specifier: ^10.0.2
     version: 10.0.2(@nestjs/common@10.3.8)(@nestjs/core@10.3.8)(reflect-metadata@0.1.14)(rxjs@7.8.1)(typeorm@0.3.20)
+  brazilian-values:
+    specifier: ^0.13.0
+    version: 0.13.0
   class-transformer:
     specifier: ^0.5.1
     version: 0.5.1
@@ -41,6 +44,12 @@ dependencies:
   joi:
     specifier: ^17.13.1
     version: 17.13.1
+  jsonapi-serializer:
+    specifier: ^3.6.9
+    version: 3.6.9
+  lodash:
+    specifier: ^4.17.21
+    version: 4.17.21
   pg:
     specifier: ^8.11.5
     version: 8.11.5
@@ -73,6 +82,9 @@ devDependencies:
   '@types/jest':
     specifier: ^29.5.12
     version: 29.5.12
+  '@types/jsonapi-serializer':
+    specifier: ^3.6.8
+    version: 3.6.8
   '@types/node':
     specifier: ^20.12.11
     version: 20.12.11
@@ -1337,6 +1349,10 @@ packages:
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
     dev: true
 
+  /@types/jsonapi-serializer@3.6.8:
+    resolution: {integrity: sha512-wPx2UBoW+R2KW0Z2U7FkzIM+iDLFqjHXxr8WGE9F8ww02m+qt886+8a2lGFSiODXe9JVnPscB8d+5+eL/d9nOw==}
+    dev: true
+
   /@types/methods@1.1.4:
     resolution: {integrity: sha512-ymXWVrDiCxTBE3+RIrrP533E70eA+9qu7zdWoHuOmGujkYtzf4HQF96b8nwHLqhuf4ykX61IGRIB38CC6/sImQ==}
     dev: true
@@ -1956,6 +1972,10 @@ packages:
     dependencies:
       fill-range: 7.0.1
     dev: true
+
+  /brazilian-values@0.13.0:
+    resolution: {integrity: sha512-gpEgD2+LUh0irOj2EfQsGm1uRcX+Pb+1qSLJtUYFUVkJi+NUc0uGa0TWDof36d0D+jrQpP4h8Vi5GIhT6bmjzw==}
+    dev: false
 
   /browserslist@4.23.0:
     resolution: {integrity: sha512-QW8HiM1shhT2GuzkvklfjcKDiWFXHOeFCIA/huJPwHsslwcydgk7X+z2zXpEijP98UCY7HbubZt5J2Zgvf0CaQ==}
@@ -3194,6 +3214,10 @@ packages:
     engines: {node: '>=0.8.19'}
     dev: true
 
+  /inflected@1.1.7:
+    resolution: {integrity: sha512-3lz7idKIPmKvz0wqlu1PUPSg5strJnCh2v2NldPQy13Fmd6WsWQ5yExDoiIX48lQ9mo8N7ztdDlkZxOauZ/E5g==}
+    dev: false
+
   /inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
     dependencies:
@@ -3879,6 +3903,14 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
     dev: true
+
+  /jsonapi-serializer@3.6.9:
+    resolution: {integrity: sha512-LeRPlP93Mz6+Klu13OKcnXNLvtH1gbeo/yfThqihAMw7vUBCWWs6jHImpR/tQwzAxJi7F1+bfVJxeHoNCrbZiQ==}
+    engines: {node: '>=0.12'}
+    dependencies:
+      inflected: 1.1.7
+      lodash: 4.17.21
+    dev: false
 
   /jsonc-parser@3.2.0:
     resolution: {integrity: sha512-gfFQZrcTc8CnKXp6Y4/CBT3fTc0OVuDofpre4aEeEpSBPV5X5v4+Vmx+8snU7RLPrNHPKSgLxGo9YuQzz20o+w==}

@@ -19,8 +19,14 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@v1/*": ["src/modules/v1/*"],
       "@app/*": ["src/modules/app/*"],
+      "@v1/*": ["src/modules/v1/*"],
+      "@interfaces/*": ["./src/interfaces/*"],
+      "@filters/*": ["./src/filters/*"],
+      "@constants/*": ["./src/constants/*"],
+      "@interceptors/*": ["./src/interceptors/*"],
+      "@decorators/*": ["./src/decorators/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   }
 }
