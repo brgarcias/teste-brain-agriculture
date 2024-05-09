@@ -17,9 +17,7 @@ export default class FarmService {
   ) {}
 
   public async findQuantity(): Promise<number> {
-    const result = await this.repository.countAll();
-    console.log('findQuantity', result);
-    return result;
+    return this.repository.countAll();
   }
 
   public async findAllInAcre(
