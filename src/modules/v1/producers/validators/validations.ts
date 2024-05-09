@@ -1,19 +1,17 @@
-import { isCPF, isCNPJ } from 'brazilian-values';
+import {
+  ValidationArguments,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
+} from 'class-validator';
+import { isCPFOrCNPJ } from 'brazilian-values';
 
-export class IsCNPJorCPF {
-  validate(document: string, args: any) {
-    const documentType = args.object.documentType;
-    switch (documentType) {
-      case 'cpf':
-        return isCPF(document);
-      case 'cnpj':
-        return isCNPJ(document);
-      default:
-        return false;
-    }
+@ValidatorConstraint({ name: 'isCNPJorCPF', async: false })
+export class IsCNPJorCPF implements ValidatorConstraintInterface {
+  validate(document: string) {
+    return isCPFOrCNPJ(document);
   }
 
-  defaultMessage() {
-    return 'Invalid document. Please provide a valid Brazilian Document ID (e.g., CPF or CNPJ).';
+  defaultMessage(args: ValidationArguments) {
+    return `Invalid document: '${args.value}'. Please provide a valid Brazilian Document ID (e.g., CPF or CNPJ).`;
   }
 }

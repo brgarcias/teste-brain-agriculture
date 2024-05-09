@@ -4,15 +4,14 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   ManyToOne,
-  BeforeInsert,
-  BeforeUpdate,
   JoinColumn,
   OneToMany,
+  BeforeInsert,
+  BeforeUpdate,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsString, Validate } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 import ProducerEntity from '@v1/producers/schemas/producer.entity';
-import { IsValidState } from '../validators/valid-state';
 import ProductionEntity from '@v1/productions/schemas/production.entity';
 
 @Entity('farms')
@@ -33,7 +32,6 @@ export default class FarmEntity {
 
   @ApiProperty({ type: String, maxLength: 2 })
   @IsString()
-  @Validate(IsValidState)
   @Column({ length: 2 })
   readonly state: string = '';
 
@@ -52,7 +50,8 @@ export default class FarmEntity {
   totalArea: number | null = null;
 
   @ManyToOne(() => ProducerEntity, (producer) => producer.farms, {
-    onDelete: 'NO ACTION',
+    onDelete: 'CASCADE',
+    cascade: ['recover'],
   })
   @JoinColumn({ name: 'producer_id' })
   readonly producer: ProducerEntity;
@@ -79,7 +78,7 @@ export default class FarmEntity {
 
   @BeforeInsert()
   @BeforeUpdate()
-  updateTotalArea() {
+  async updateTotalArea() {
     this.totalArea = this.agriculturalArea + this.vegetationArea;
   }
 }

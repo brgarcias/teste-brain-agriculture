@@ -8,6 +8,10 @@ import {
   BadRequestException,
   Query,
   ParseIntPipe,
+  Post,
+  HttpCode,
+  HttpStatus,
+  Body,
 } from '@nestjs/common';
 // API SWAGGER
 import {
@@ -19,6 +23,10 @@ import {
   ApiParam,
   ApiExtraModels,
   getSchemaPath,
+  ApiBody,
+  ApiBadRequestResponse,
+  ApiInternalServerErrorResponse,
+  ApiConflictResponse,
 } from '@nestjs/swagger';
 // INTERCEPTORS
 import WrapResponseInterceptor from '@interceptors/wrap-response.interceptor';
@@ -36,6 +44,7 @@ import ResponseUtils from '@utils/response.utils';
 import ProductionEntity from './schemas/production.entity';
 // SERVICES
 import ProductionService from './productions.service';
+import CreateProductionDto from './dto/create-production.dto';
 
 @ApiTags('Production')
 @ApiBearerAuth()
@@ -44,6 +53,79 @@ import ProductionService from './productions.service';
 @Controller()
 export default class ProductionController {
   constructor(private readonly productionService: ProductionService) {}
+
+  /**
+   * * Post Method for Production Creation
+   * @api {post} /productions
+   * @body Data to send in body - @see CreateProductionDto
+   * @description Create one Production
+   * @returns Promise<SuccessResponseInterface | never>
+   * @throws {BadRequestException}
+   */
+  @ApiBody({ type: CreateProductionDto })
+  @ApiOkResponse({
+    schema: {
+      type: 'object',
+      properties: {
+        data: {
+          $ref: getSchemaPath(ProductionEntity),
+        },
+      },
+    },
+    description: '201. Success. Returns a production',
+  })
+  @ApiBadRequestResponse({
+    schema: {
+      type: 'object',
+      example: {
+        message: [
+          {
+            target: {
+              producer_id: 'number',
+              farm_id: 'number',
+              plantation_id: 'number',
+            },
+            value: 'string',
+            property: 'string',
+            children: [],
+            constraints: {},
+          },
+        ],
+        error: 'Bad Request',
+      },
+    },
+    description: '400. ValidationException',
+  })
+  @ApiConflictResponse({
+    schema: {
+      type: 'object',
+      example: {
+        message: 'string',
+      },
+    },
+    description: '409. ConflictResponse',
+  })
+  @ApiInternalServerErrorResponse({
+    schema: {
+      type: 'object',
+      example: {
+        message: 'string',
+        details: {},
+      },
+    },
+    description: '500. InternalServerError',
+  })
+  @ApiBearerAuth()
+  @HttpCode(HttpStatus.CREATED)
+  @Post()
+  async createOne(
+    @Body() production: CreateProductionDto,
+  ): Promise<SuccessResponseInterface | never> {
+    await this.productionService.createOne(production);
+    return ResponseUtils.success('production', {
+      message: 'success! production created.',
+    });
+  }
 
   /**
    * * Get Method for Production Retrieval by id

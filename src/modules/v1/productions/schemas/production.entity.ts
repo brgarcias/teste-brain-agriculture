@@ -16,17 +16,23 @@ export default class ProductionEntity {
   @PrimaryGeneratedColumn()
   readonly id: number = 1;
 
-  @ManyToOne(() => PlantationEntity, (plantation) => plantation.productions)
+  @ManyToOne(() => PlantationEntity, (plantation) => plantation.productions, {
+    eager: true,
+  })
   @JoinColumn({ name: 'plantation_id' })
-  readonly plantation: PlantationEntity;
+  readonly plantation: number;
 
-  @ManyToOne(() => ProducerEntity, (producer) => producer.productions)
+  @ManyToOne(() => ProducerEntity, (producer) => producer.productions, {
+    eager: true,
+  })
   @JoinColumn({ name: 'producer_id' })
-  readonly producer: ProducerEntity;
+  readonly producer: number;
 
-  @ManyToOne(() => FarmEntity, (farm) => farm.productions)
+  @ManyToOne(() => FarmEntity, (farm) => farm.productions, {
+    eager: true,
+  })
   @JoinColumn({ name: 'farm_id' })
-  readonly farm: FarmEntity;
+  readonly farm: number;
 
   @ApiProperty({ type: 'timestamp', default: new Date() })
   @CreateDateColumn({
