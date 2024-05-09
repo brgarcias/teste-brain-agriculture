@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class AddProductions1715265369021 implements MigrationInterface {
+export class AddProductions1715282264330 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     const producersDocuments = [
       '90497249065',
@@ -33,13 +33,10 @@ export class AddProductions1715265369021 implements MigrationInterface {
       );
 
       const plantations = await queryRunner.query(
-        `SELECT
-            id
-        FROM
-            "plantations"
-        WHERE
+        `SELECT id FROM "plantations"
+         WHERE
             name IN ($1, $2, $3, $4, $5)
-        ORDER BY
+         ORDER BY
             id ASC`,
         plantationsData,
       );
@@ -77,34 +74,31 @@ export class AddProductions1715265369021 implements MigrationInterface {
     try {
       const producers = await queryRunner.query(
         `SELECT
-                pr."id",
-                fr."id" as farm_id
-            FROM
-                "producers" pr
-                RIGHT JOIN farms fr ON pr."id" = fr.producer_id
-            WHERE
-                pr."document" IN ($1, $2, $3, $4, $5)
-            ORDER BY
-                pr."id" ASC`,
+            pr."id",
+            fr."id" as farm_id
+         FROM
+            "producers" pr
+            RIGHT JOIN farms fr ON pr."id" = fr.producer_id
+         WHERE
+            pr."document" IN ($1, $2, $3, $4, $5)
+         ORDER BY
+            pr."id" ASC`,
         producersDocuments,
       );
       const plantations = await queryRunner.query(
-        `SELECT
-                id
-            FROM
-                "plantations"
-            WHERE
-                name IN ($1, $2, $3, $4, $5)
-            ORDER BY
-                id ASC`,
+        `SELECT id FROM "plantations"
+         WHERE
+            name IN ($1, $2, $3, $4, $5)
+         ORDER BY
+            id ASC`,
         plantationsData,
       );
       for (let i = 0; i < producers.length; i++) {
         await queryRunner.query(
           `DELETE FROM productions 
-            WHERE producer_id = $1
-                AND farm_id = $2
-                AND plantation_id = $3`,
+                WHERE producer_id = $1
+                    AND farm_id = $2
+                    AND plantation_id = $3`,
           [producers[i].id, producers[i].farm_id, plantations[i].id],
         );
       }
