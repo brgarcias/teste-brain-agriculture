@@ -10,6 +10,7 @@ import PaginationUtils from '@utils/pagination.utils';
 // SCHEMA
 import ProductionEntity from './schemas/production.entity';
 import { IProductionRepository } from './interfaces/productions.interface';
+import CreateProductionDto from './dto/create-production.dto';
 
 @Injectable()
 export default class ProductionRepository implements IProductionRepository {
@@ -18,8 +19,13 @@ export default class ProductionRepository implements IProductionRepository {
     private readonly productionModel: Repository<ProductionEntity>,
   ) {}
 
+  public createOne(production: CreateProductionDto): Promise<ProductionEntity> {
+    return this.productionModel.save(production);
+  }
+
   public async findOne(id: number): Promise<ProductionEntity | null> {
     return this.productionModel.findOne({
+      loadEagerRelations: true,
       where: [
         {
           id,
@@ -32,8 +38,9 @@ export default class ProductionRepository implements IProductionRepository {
     options: PaginationParamsInterface,
   ): Promise<ProductionEntity[]> {
     return this.productionModel.find({
+      loadEagerRelations: true,
       cache: true,
-      relationLoadStrategy: 'query',
+      relationLoadStrategy: 'join',
       skip: PaginationUtils.getSkipCount(options.page, options.limit),
       take: PaginationUtils.getLimitCount(options.limit),
     });
