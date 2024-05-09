@@ -6,10 +6,8 @@ import {
   OneToMany,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { Validate } from 'class-validator';
 import FarmEntity from '@v1/farms/schemas/farm.entity';
 import { DocumentsEnum } from '../enum/document-type.enum';
-import { IsCNPJorCPF } from '../validators/validations';
 import ProductionEntity from '@v1/productions/schemas/production.entity';
 
 @Entity('producers')
@@ -24,7 +22,6 @@ export default class ProducerEntity {
 
   @ApiProperty({ type: String, maxLength: 32 })
   @Column({ length: 32, unique: true })
-  @Validate(IsCNPJorCPF)
   readonly document: string = '';
 
   @ApiProperty({
@@ -42,6 +39,8 @@ export default class ProducerEntity {
 
   @OneToMany(() => FarmEntity, (farm) => farm.producer, {
     onDelete: 'CASCADE',
+    cascade: ['insert', 'remove', 'recover'],
+    eager: true,
   })
   readonly farms: FarmEntity[];
 

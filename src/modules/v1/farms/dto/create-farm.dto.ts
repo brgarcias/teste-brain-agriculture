@@ -1,10 +1,18 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsString, MaxLength } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  MaxLength,
+  Validate,
+} from 'class-validator';
+import { IsValidState } from '../validators/valid-state';
+import { Transform } from 'class-transformer';
 
 export default class CreateFarmDto {
   @ApiProperty({ type: String })
   @IsString()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Name can not be empty' })
   @MaxLength(64)
   readonly name: string = '';
 
@@ -18,6 +26,8 @@ export default class CreateFarmDto {
   @IsNotEmpty()
   @IsString()
   @MaxLength(2)
+  @Transform(({ value }) => value.toUpperCase())
+  @Validate(IsValidState, { always: true })
   readonly state: string = '';
 
   @ApiProperty({ type: Number })

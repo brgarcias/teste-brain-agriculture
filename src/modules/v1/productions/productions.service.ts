@@ -7,6 +7,7 @@ import { PaginatedProductionsInterface } from '@interfaces/paginatedEntity.inter
 import ProductionEntity from './schemas/production.entity';
 import { IProductionRepository } from './interfaces/productions.interface';
 import { FindAllProductionsUseCase } from './use-cases/find-all-productions.use-case';
+import CreateProductionDto from './dto/create-production.dto';
 
 @Injectable()
 export default class ProductionService {
@@ -15,6 +16,12 @@ export default class ProductionService {
     private repository: IProductionRepository,
     private findAllProductionsUseCase: FindAllProductionsUseCase,
   ) {}
+
+  public async createOne(
+    production: CreateProductionDto,
+  ): Promise<ProductionEntity> {
+    return this.repository.createOne(production);
+  }
 
   public async findOne(id: number): Promise<ProductionEntity | null> {
     return this.repository.findOne(id);

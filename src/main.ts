@@ -1,5 +1,9 @@
-import { INestApplication, ValidationPipe } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
+import {
+  ClassSerializerInterceptor,
+  INestApplication,
+  ValidationPipe,
+} from '@nestjs/common';
+import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './modules/app/app.module';
 import * as dotenv from 'dotenv';
 import * as basicAuth from 'express-basic-auth';
@@ -63,7 +67,15 @@ function configureSwaggerDocumentation(app: INestApplication): void {
 
 function configureGlobalSettings(app: INestApplication): void {
   app.enableShutdownHooks();
-  app.useGlobalPipes(new ValidationPipe({ errorHttpStatusCode: 422 }));
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      errorHttpStatusCode: 422,
+      transform: true,
+      validateCustomDecorators: true,
+      always: true,
+    }),
+  );
   app.useGlobalFilters(new TypeORMNotFoundExceptionFilter());
   app.use(cookieParser());
 }

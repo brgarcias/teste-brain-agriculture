@@ -4,6 +4,12 @@ export class CreateTableProducers1715280258022 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.startTransaction();
     try {
+      await queryRunner.query(`
+        CREATE TYPE "public"."producers_document_type_enum" AS ENUM (
+          'cpf', 
+          'cnpj'
+        );
+      `);
       await queryRunner.query(
         `CREATE TABLE IF NOT EXISTS "public"."producers" (
             "id" SERIAL PRIMARY KEY,
@@ -28,6 +34,9 @@ export class CreateTableProducers1715280258022 implements MigrationInterface {
     await queryRunner.startTransaction();
     try {
       await queryRunner.query(`DROP TABLE IF EXISTS "public"."producers";`);
+      await queryRunner.query(
+        `DROP TYPE IF EXISTS "public"."producers_document_type_enum";`,
+      );
       await queryRunner.commitTransaction();
       console.log('Producers table dropped successfully.');
     } catch (error) {

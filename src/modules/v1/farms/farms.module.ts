@@ -5,24 +5,23 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import FarmsController from './farms.controller';
 import FarmsService from './farms.service';
 import FarmEntity from './schemas/farm.entity';
-import FarmsRepository from './farms.repository';
 import FarmRepository from './farms.repository';
 import { FindAllInAcreFarmsUseCase } from './use-cases/find-all-in-acre-farms.use-case';
-import { FindAllQuantityFarmsUseCase } from './use-cases/find-all-quantity-farms.use-case';
+import { FindAllFarmsUseCase } from './use-cases/find-all-farms.use-case copy';
 
 @Module({
   imports: [TypeOrmModule.forFeature([FarmEntity])],
   controllers: [FarmsController],
   providers: [
     FarmsService,
-    FarmsRepository,
-    FindAllQuantityFarmsUseCase,
+    FarmRepository,
     FindAllInAcreFarmsUseCase,
+    FindAllFarmsUseCase,
     {
       provide: 'IFarmRepository',
       useExisting: FarmRepository,
     },
   ],
-  exports: [FarmsService, FarmsRepository],
+  exports: [FarmsService, FarmRepository],
 })
 export default class FarmsModule {}
