@@ -5,7 +5,7 @@ import * as Joi from 'joi';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import V1Module from '@v1/v1.module';
-import { typeOrmConfigAsync } from 'src/typeorm/provider/typeorm.provider';
+import { typeOrmConfigAsync } from '@typeorm/provider/typeorm.provider';
 
 @Module({
   imports: [
