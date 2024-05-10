@@ -1,11 +1,10 @@
+# Nest.js API - Test Agro
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+<p align="center">  A Nest.js-powered API designed for efficient and scalable management of plantation production within a farm producer management system. The API offers essential features for handling plantations and related information with a focus on RESTful endpoints and authentication.</p>
     <p align="center">
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
@@ -19,55 +18,68 @@
     <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
   <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+
+## Table of Contents
+
+- [Nest.js API - Test Agro](#nestjs-api---test-agro)
+  - [Table of Contents](#table-of-contents)
+  - [Description](#description)
+    - [Login Doc](#login-doc)
+  - [API Access](#api-access)
+  - [Running](#running)
+  - [Installation with Docker](#installation-with-docker)
+  - [Test](#test)
+  - [Support](#support)
+  - [Stay in touch](#stay-in-touch)
+  - [License](#license)
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This Nest.js API serves as a backend for a farm producer management system. It is built with a focus on efficiency and scalability, providing RESTful endpoints for managing plantations. You can find the API documentation with Swagger at [https://teste-brain-agriculture.onrender.com/docs](https://teste-brain-agriculture.onrender.com/docs).
 
-## Installation
+### Login Doc
+
+- **Username:** test-agro
+- **Password:** 12345
+
+## API Access
+
+- **API URL:** [https://teste-brain-agriculture.onrender.com/v1](https://teste-brain-agriculture.onrender.com/v1)
+
+## Running
+
+This example requires docker or a local Postgres installation. If using a local Postgres database, see app.module.ts for credentials, and make sure there are matching credentials in the database and the source code.
+
+## Installation with Docker
+
+Initiate the project using [Docker](https://www.docker.com/get-started/):
 
 ```bash
-$ pnpm install
-```
-
-## Running the app
-
-```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+docker-compose up --build -d
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ pnpm run test
+$ pnpm test
 
 # e2e tests
-$ pnpm run test:e2e
+$ pnpm test:e2e
 
 # test coverage
-$ pnpm run test:cov
+$ pnpm test:cov
 ```
 
 ## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Test Agro is an open-source project licensed under the MIT License, fueled by your invaluable support. Contribute to the project's enhancement by initiating a pull request on [GitHub](https://github.com/brgarcias/teste-brain-agriculture/pulls "PR Test Agro"). Your collaboration is greatly appreciated!
 
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Email - *<bruno-151299@hotmail.com>*
+- Website - [Portfolio](https://brgarcias-portfolio.netlify.app/ "portfolio")
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+Test Agro is [MIT licensed](LICENSE).
