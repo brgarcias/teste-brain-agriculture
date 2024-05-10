@@ -7,7 +7,7 @@ import FarmsService from './farms.service';
 import FarmEntity from './schemas/farm.entity';
 import FarmRepository from './farms.repository';
 import { FindAllInAcreFarmsUseCase } from './use-cases/find-all-in-acre-farms.use-case';
-import { FindAllFarmsUseCase } from './use-cases/find-all-farms.use-case copy';
+import { FindAllFarmsUseCase } from './use-cases/find-all-farms.use-case';
 
 @Module({
   imports: [TypeOrmModule.forFeature([FarmEntity])],

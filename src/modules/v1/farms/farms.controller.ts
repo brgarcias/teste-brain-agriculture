@@ -3,6 +3,8 @@ import {
   BadRequestException,
   Controller,
   Get,
+  HttpCode,
+  HttpStatus,
   NotFoundException,
   Param,
   ParseIntPipe,
@@ -72,6 +74,7 @@ export default class FarmController {
     },
     description: '401. UnauthorizedException.',
   })
+  @HttpCode(HttpStatus.FOUND)
   @Get('quantity')
   async findQuantity(): Promise<number> {
     return this.farmService.findQuantity();
@@ -107,6 +110,7 @@ export default class FarmController {
     },
     description: '401. UnauthorizedException.',
   })
+  @HttpCode(HttpStatus.FOUND)
   @Get('acres')
   async findAllInAcre(@Query() query: any): Promise<number> {
     const paginationParams: PaginationParamsInterface | false =
@@ -148,8 +152,9 @@ export default class FarmController {
     description: '401. UnauthorizedException.',
   })
   @Serialize(AllFarmsResponseEntity)
+  @HttpCode(HttpStatus.FOUND)
   @Get()
-  async findAll(@Query() query: any) {
+  async findAll(@Query() query: any): Promise<SuccessResponseInterface> {
     const paginationParams: PaginationParamsInterface | false =
       paginationUtils.normalizeParams({ page: query.page, limit: query.limit });
     if (!paginationParams) {
@@ -199,6 +204,7 @@ export default class FarmController {
   })
   @ApiParam({ name: 'id', type: String })
   @Serialize(AllFarmsResponseEntity)
+  @HttpCode(HttpStatus.FOUND)
   @Get(':id')
   async findOne(
     @Param('id', ParseIntPipe) id: number,
