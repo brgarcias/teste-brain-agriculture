@@ -1,6 +1,8 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsOptional, IsString, MaxLength } from 'class-validator';
+import { IsOptional, IsString, MaxLength, Validate } from 'class-validator';
 import { DocumentsEnum } from '../enum/document-type.enum';
+import { Transform } from 'class-transformer';
+import { IsCNPJorCPF } from '../validators/validations';
 
 export default class UpdateProducerDto {
   @ApiPropertyOptional({ type: String })
@@ -13,6 +15,8 @@ export default class UpdateProducerDto {
   @IsString()
   @IsOptional()
   @MaxLength(64)
+  @Transform(({ value }) => value.replace(/\D/g, ''))
+  @Validate(IsCNPJorCPF, { always: true })
   readonly document?: string = '';
 
   @ApiPropertyOptional({ type: String })
