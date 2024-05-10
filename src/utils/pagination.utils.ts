@@ -6,11 +6,12 @@ class PaginationUtils {
     location: string,
     paginationParams?: PaginationParamsInterface,
   ): string {
-    if (!process.env.SERVER_HOST) {
+    const host: string = process.env.SERVER_HOST;
+    if (!host) {
       throw new Error('SERVER_HOST parameter did not provide in env');
     }
 
-    let url = `${process.env.SERVER_HOST}/${location}?`;
+    let url = `${host}/${location}?`;
     let count = 0;
     if (paginationParams) {
       if (paginationParams.page) {
@@ -30,16 +31,12 @@ class PaginationUtils {
   }
 
   private static normalizeParam(param?: string): number | false {
-    if (param) {
-      const tmp = parseInt(param, 10);
+    if (!param) return false;
 
-      if (Number.isNaN(tmp)) return false;
-      if (tmp <= 0) return false;
-
-      return tmp;
-    }
-
-    return false;
+    const tmp = parseInt(param, 10);
+    if (Number.isNaN(tmp)) return false;
+    if (tmp <= 0) return false;
+    return tmp;
   }
 
   public normalizeParams(params: {
@@ -48,14 +45,13 @@ class PaginationUtils {
     size?: string;
   }): PaginationParamsInterface | false {
     const ret: { page: number; limit?: number } = { page: 1 };
-    if (!params) {
+    if (!params.page) {
       return ret;
     }
 
     const page = PaginationUtils.normalizeParam(params.page);
-    if (page) {
-      ret.page = page;
-    }
+    if (!page) return false;
+    ret.page = page;
 
     const limit = PaginationUtils.normalizeParam(params.limit);
     if (limit) {

@@ -22,7 +22,7 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:e2e": "jest --config jest-e2e.json",
     "docker:restart-app": "docker restart app",
     "migration:create": "typeorm migration:create src/typeorm/migrations/$npm_config_name"
   },
@@ -73,6 +73,7 @@
     "typescript": "^5.4.5"
   },
   "jest": {
+    "preset": "ts-jest",
     "moduleFileExtensions": [
       "js",
       "json",
@@ -86,6 +87,19 @@
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
+    "moduleNameMapper": {
+      "^@constants/(.*)$": "<rootDir>/constants/$1",
+      "^@decorators/(.*)$": "<rootDir>/decorators/$1",
+      "^@interceptors/(.*)$": "<rootDir>/interceptors/$1",
+      "^@interfaces/(.*)$": "<rootDir>/interfaces/$1",
+      "^@v1/(.*)$": "<rootDir>/modules/v1/$1",
+      "^@app/(.*)$": "<rootDir>/modules/app/$1",
+      "^@utils/(.*)$": "<rootDir>/utils/$1",
+      "^@typeorm/(.*)$": "<rootDir>/typeorm/$1",
+      "tsconfig-paths/register": [
+        "<rootDir>/node_modules/tsconfig-paths/register"
+      ]
+    },
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
   }

@@ -1,0 +1,22 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": "src",
+  "testEnvironment": "node",
+  "testRegex": ".e2e-spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "moduleNameMapper": {
+    "^@constants/(.*)$": "<rootDir>/constants/$1",
+    "^@decorators/(.*)$": "<rootDir>/decorators/$1",
+    "^@interceptors/(.*)$": "<rootDir>/interceptors/$1",
+    "^@interfaces/(.*)$": "<rootDir>/interfaces/$1",
+    "^@v1/(.*)$": "<rootDir>/modules/v1/$1",
+    "^@app/(.*)$": "<rootDir>/modules/app/$1",
+    "^@utils/(.*)$": "<rootDir>/utils/$1",
+    "^@typeorm/(.*)$": "<rootDir>/typeorm/$1",
+    "tsconfig-paths/register": [
+      "<rootDir>/node_modules/tsconfig-paths/register"
+    ]
+  }
+}

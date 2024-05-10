@@ -15,8 +15,10 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+    it('should return "API is running! Test Agriculture V1.0"', () => {
+      expect(appController.getApiName()).toBe(
+        'API is running! Test Agriculture V1.0',
+      );
     });
   });
 });

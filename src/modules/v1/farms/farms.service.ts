@@ -5,7 +5,7 @@ import { IFarmRepository } from './interfaces/farms.interface';
 import { PaginationParamsInterface } from '@interfaces/pagination-params.interface';
 import { PaginatedFarmsInterface } from '@interfaces/paginatedEntity.interface';
 import FarmEntity from './schemas/farm.entity';
-import { FindAllFarmsUseCase } from './use-cases/find-all-farms.use-case copy';
+import { FindAllFarmsUseCase } from './use-cases/find-all-farms.use-case';
 
 @Injectable()
 export default class FarmService {

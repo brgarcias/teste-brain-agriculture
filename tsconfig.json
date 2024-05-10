@@ -26,7 +26,8 @@
       "@constants/*": ["./src/constants/*"],
       "@interceptors/*": ["./src/interceptors/*"],
       "@decorators/*": ["./src/decorators/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@typeorm/*": ["./src/typeorm/*"]
     }
   }
 }
