@@ -6,8 +6,6 @@ import {
   ManyToOne,
   JoinColumn,
   OneToMany,
-  BeforeInsert,
-  BeforeUpdate,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, IsString } from 'class-validator';
@@ -75,10 +73,4 @@ export default class FarmEntity {
     default: () => 'CURRENT_TIMESTAMP(6)',
   })
   readonly updatedAt: Date = new Date();
-
-  @BeforeInsert()
-  @BeforeUpdate()
-  async updateTotalArea() {
-    this.totalArea = this.agriculturalArea + this.vegetationArea;
-  }
 }

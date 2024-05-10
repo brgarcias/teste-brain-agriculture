@@ -6,8 +6,9 @@ import {
   MaxLength,
   Validate,
 } from 'class-validator';
-import { IsValidState } from '../validators/valid-state';
+import { IsValidState } from '../validators/state.validator';
 import { Transform } from 'class-transformer';
+import { IsValidTotalArea } from '../validators/total-area.validator';
 
 export default class CreateFarmDto {
   @ApiProperty({ type: String })
@@ -39,4 +40,10 @@ export default class CreateFarmDto {
   @IsNotEmpty()
   @IsNumber()
   readonly vegetationArea: number = 0;
+
+  @ApiProperty({ type: Number })
+  @IsNotEmpty()
+  @IsNumber()
+  @Validate(IsValidTotalArea, { always: true })
+  readonly totalArea: number = 0;
 }
